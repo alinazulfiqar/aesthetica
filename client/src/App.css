@@ -1,0 +1,23 @@
+.App {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background: url("https://i.pinimg.com/originals/18/b5/ea/18b5ea2167c8ce34ca09540552a05124.gif");
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.html,
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}

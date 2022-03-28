@@ -1,0 +1,9 @@
+export const HOME = "/";
+export const ITEMPLAY = "/play/:id";
+export const ITEMREAD = "/read/:id";
+export const ITEMWATCH = "/watch/:id";
+export const LOGIN = "/login";
+export const SIGNUP = "/signup";
+export const LIST = "/my-list";
+export const CREATE = "/create";
+export const POSTS = "/my-posts"
