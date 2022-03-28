@@ -78,7 +78,7 @@ export function DiscoverContainer({ children }) {
   const { filterArray, setFilterArray, medium, setMedium } = useContext(FilterContext);
 
   async function getContent() {
-    const resCC = await fetch("http://localhost:5000/content");
+    const resCC = await fetch("/content");
     const array = await resCC.json();
     setContent(getShuffledArray(array));
     // setCC(getShuffledArray(filterFunction(array, "cottagecore")));
@@ -160,7 +160,7 @@ export function DiscoverContainer({ children }) {
     }
     if (isLoggedIn) {
       try {
-        const res = await fetch("http://localhost:5000/vote/votes", {
+        const res = await fetch("/vote/votes", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -252,7 +252,7 @@ export function DiscoverContainer({ children }) {
   const getListHandler = async () => {
     if (isLoggedIn) {
       try {
-        const res = await fetch("http://localhost:5000/my-list/", {
+        const res = await fetch("/my-list/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -271,7 +271,7 @@ export function DiscoverContainer({ children }) {
   const listHandler = async (id) => {
     if (isLoggedIn) {
       try {
-        const res = await fetch("http://localhost:5000/my-list/add", {
+        const res = await fetch("/my-list/add", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -288,7 +288,7 @@ export function DiscoverContainer({ children }) {
 
   const removeFromListHandler = async (id)=> {
     try {
-      const res = await fetch ("http://localhost:5000/my-list/remove", {
+      const res = await fetch ("/my-list/remove", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -306,7 +306,7 @@ export function DiscoverContainer({ children }) {
   // post version that got a votes count
   async function getVotes1(id) {
     try {
-      const res = await fetch("http://localhost:5000/vote/allvotes", {
+      const res = await fetch("/vote/allvotes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -326,7 +326,7 @@ export function DiscoverContainer({ children }) {
 
   async function getVotes() {
     try {
-      const res = await fetch("http://localhost:5000/vote/votestable");
+      const res = await fetch("/vote/votestable");
       const parseRes = await res.json();
       const voteArray = [...parseRes];
       setVotes(voteArray);

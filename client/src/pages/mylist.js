@@ -22,7 +22,7 @@ export default function MyList({ children }) {
   );
   const listHandler = async () => {
     try {
-      const res = await fetch("http://localhost:5000/my-list", {
+      const res = await fetch("/my-list", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export default function MyList({ children }) {
 
   const removeFromListHandler = async (id)=> {
     try {
-      const res = await fetch ("http://localhost:5000/my-list/remove", {
+      const res = await fetch ("/my-list/remove", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

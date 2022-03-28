@@ -74,7 +74,7 @@ export default function Type({ children }) {
   // functions/handlers
 
   async function getContent () {
-    const res = await fetch("http://localhost:5000/content")
+    const res = await fetch("/content")
     const parseRes = await res.json()
     setContent(parseRes.filter((content)=> content.type === idParams.id))
   }
@@ -181,7 +181,7 @@ export default function Type({ children }) {
     }
     if (isLoggedIn) {
       try {
-        const res = await fetch("http://localhost:5000/vote/votes", {
+        const res = await fetch("/vote/votes", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -244,7 +244,7 @@ export default function Type({ children }) {
     const getListHandler = async () => {
       if (isLoggedIn) {
         try {
-          const res = await fetch("http://localhost:5000/my-list/", {
+          const res = await fetch("/my-list/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -263,7 +263,7 @@ export default function Type({ children }) {
   const listHandler = async (id) => {
     if (isLoggedIn) {
       try {
-        const res = await fetch("http://localhost:5000/my-list/add", {
+        const res = await fetch("/my-list/add", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -281,7 +281,7 @@ export default function Type({ children }) {
 
   const removeFromListHandler = async (id)=> {
     try {
-      const res = await fetch ("http://localhost:5000/my-list/remove", {
+      const res = await fetch ("/my-list/remove", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -299,7 +299,7 @@ export default function Type({ children }) {
   // post version that got a votes count
   async function getVotes1(id) {
     try {
-      const res = await fetch("http://localhost:5000/vote/allvotes", {
+      const res = await fetch("/vote/allvotes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -319,7 +319,7 @@ export default function Type({ children }) {
 
   async function getVotes() {
     try {
-      const res = await fetch("http://localhost:5000/vote/votestable");
+      const res = await fetch("/vote/votestable");
       const parseRes = await res.json();
       const voteArray = [...parseRes];
       setVotes(voteArray);

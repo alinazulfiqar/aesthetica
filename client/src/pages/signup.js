@@ -24,7 +24,7 @@ export default function Signup({ children }) {
 
     try {
       const body = { email, password, username };
-      const response = await fetch("http://localhost:5000/auth/register", {
+      const response = await fetch("/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

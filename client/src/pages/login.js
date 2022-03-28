@@ -21,7 +21,7 @@ export default function Login({ children }) {
     e.preventDefault();
     try {
       const body = { username, password };
-      const response = await fetch("http://localhost:5000/auth/login", {
+      const response = await fetch("/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

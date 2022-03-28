@@ -2,16 +2,22 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
-
+const path = require("path")
+const PORT = process.env.PORT || 5000;
 
 
 // process.env.PORT
+// process.env.NODE_ENV => production or undefined
+
 
 // middleware
 
 app.use(cors());
 app.use(express.json());
 
+if(process.env.NODE_ENV === "production"){
+app.use(express.static(path.join(__dirname, "client/build")))
+}
 // **routes**
 // post to db
 app.use("/post", require("./routes/posts"))
@@ -257,9 +263,13 @@ app.get("/victorian", async (req, res) => {
   }
 });
 
+
+app.get("*", (req,res)=>{
+  res.sendFile(path.join(__dirname, "client/build/index.html"))
+})
 // listen
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
   console.log("server is listening on port 5000 ook!");
 });
 

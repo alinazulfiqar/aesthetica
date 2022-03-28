@@ -56,7 +56,7 @@ const onSubmitHandler = async (e) => {
   // get description and imageurl
   if(genre && type && medium && title.length>0 && whereToFind.length>0){
     try {
-      const response = await fetch(`http://localhost:5000/scrape/${medium}`, {
+      const response = await fetch(`/scrape/${medium}`, {
         method:"POST",
         headers:{
           "Content-Type": "application/json"
@@ -66,7 +66,7 @@ const onSubmitHandler = async (e) => {
       const parseResponse = await response.json()
       const {description, imageUrl} = parseResponse[0]
       // post to db
-      const res = await fetch('http://localhost:5000/post/submit', {
+      const res = await fetch('/post/submit', {
         method:"POST",
         headers:{
           "Content-Type": "application/json"

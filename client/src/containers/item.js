@@ -28,7 +28,7 @@ export function ItemContainer({ children }) {
   const navigate = useNavigate()
   const { id } = useParams();
   async function getContent() {
-    const res = await fetch("http://localhost:5000/content");
+    const res = await fetch("/content");
     const array = await res.json();
     setContent(array);
   }
@@ -41,7 +41,7 @@ export function ItemContainer({ children }) {
   const listHandler = async (id) => {
     if (isLoggedIn) {
       try {
-        const res = await fetch("http://localhost:5000/my-list/add", {
+        const res = await fetch("/my-list/add", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export function ItemContainer({ children }) {
     const getListHandler = async () => {
       if (isLoggedIn) {
         try {
-          const res = await fetch("http://localhost:5000/my-list/", {
+          const res = await fetch("/my-list/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export function ItemContainer({ children }) {
 // remove from list
     const removeFromListHandler = async (id)=> {
       try {
-        const res = await fetch ("http://localhost:5000/my-list/remove", {
+        const res = await fetch ("/my-list/remove", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -96,7 +96,7 @@ export function ItemContainer({ children }) {
 
   const postHandler = async () => {
     try {
-      const res = await fetch("http://localhost:5000/post/allposts", {
+      const res = await fetch("/post/allposts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export function ItemContainer({ children }) {
 
   const removeFromPostHandler = async (id)=> {
     try {
-      const res = await fetch ("http://localhost:5000/post/delete", {
+      const res = await fetch ("/post/delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -24,7 +24,7 @@ export default function MyPost({ children }) {
   );
   const postHandler = async () => {
     try {
-      const res = await fetch("http://localhost:5000/post/allposts", {
+      const res = await fetch("/post/allposts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export default function MyPost({ children }) {
 
   const removeFromPostHandler = async (id)=> {
     try {
-      const res = await fetch ("http://localhost:5000/post/delete", {
+      const res = await fetch ("/post/delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

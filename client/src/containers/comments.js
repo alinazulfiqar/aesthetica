@@ -66,7 +66,7 @@ export function CommentsContainer({ children, ...restProps }) {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/comments/post", {
+      const res = await fetch("/comments/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +89,7 @@ export function CommentsContainer({ children, ...restProps }) {
   const onReplyHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/comments/post", {
+      const res = await fetch("/comments/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -111,7 +111,7 @@ export function CommentsContainer({ children, ...restProps }) {
 
   async function fetchComments() {
     try {
-      const response = await fetch(`http://localhost:5000/comments/${+id}`);
+      const response = await fetch(`/comments/${+id}`);
       const comments = await response.json();
       setCommentsArray(comments);
       // console.log(comments);
@@ -222,7 +222,7 @@ export function CommentsContainer({ children, ...restProps }) {
     e.preventDefault()
     if(updatedComment.id === commentID){
       try {
-        const res = await fetch("http://localhost:5000/comments/update", {
+        const res = await fetch("/comments/update", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -243,7 +243,7 @@ export function CommentsContainer({ children, ...restProps }) {
 
   const deleteCommentHandler = async(commentID) => {
       try {
-        const res = await fetch("http://localhost:5000/comments/delete", {
+        const res = await fetch("/comments/delete", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
