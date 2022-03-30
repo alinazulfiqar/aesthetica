@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, HashRouter, Routes, Route } from "react-router-dom";
 import * as ROUTES from "./constants/routes";
 import { ItemContainer } from "./containers/item";
 import Discover from "./pages/discover";
@@ -42,7 +42,7 @@ function App() {
   return (
     <>
       <FilterContextProvider>
-        <Router>
+        <HashRouter>
           {/* <ScrollToTop/> */}
           <Routes>
             <Route path={ROUTES.HOME} element={<Discover />}></Route>
@@ -59,7 +59,7 @@ function App() {
             />
             <Route path={`:id`} element={<Type/>}/>
           </Routes>
-        </Router>
+        </HashRouter>
       </FilterContextProvider>
     </>
   );
