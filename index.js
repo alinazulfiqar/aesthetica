@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 if(process.env.NODE_ENV === "production"){
-app.use('/static', express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "client/build")));
 }
 console.log(path.join(__dirname, "client/build"));
 // **routes**
@@ -265,8 +265,8 @@ app.get("/victorian", async (req, res) => {
 });
 
 
-app.get("/*", (req,res)=>{
-  res.sendFile(path.join(__dirname, "client/build", "index.html"))
+app.get("*", (req,res)=>{
+  res.sendFile(path.join(__dirname+ "client/build", "index.html"))
 })
 // listen
 
