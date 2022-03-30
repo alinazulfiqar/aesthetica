@@ -270,7 +270,7 @@ app.get("*", (req,res)=>{
 // listen
 
 app.listen(PORT, () => {
-  console.log("server is listening on port 5000 ook!");
+  console.log(`server is listening on port ${PORT} ook!`);
 });
 
 // JWT video 1:24
