@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
-const path = require("path")
+const path = require("path");
 const PORT = process.env.PORT || 5000;
 
 
@@ -16,12 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 if(process.env.NODE_ENV === "production"){
-  app.get('*', function (req, res) {
-    const index = path.join(__dirname, 'client/build', 'index.html');
-    res.sendFile(index);
-  });
-// app.use(express.static("client/build"))
-
+app.use(express.static(path.join(__dirname, "client/build")));
 }
 // **routes**
 // post to db
