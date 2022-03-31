@@ -15,13 +15,16 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-
-
-if (process.env.NODE_ENV === "production") {
-  //server static content
-  //npm run build
-  app.use(express.static(path.join(__dirname, "client/build")));
+if (process.env.NODE_ENV !== 'development') {
+  app.use(express.static('public'));
+  // app.use('/static', express.static(path.join(__dirname, 'build')));
 }
+
+// if (process.env.NODE_ENV === "production") {
+//   //server static content
+//   //npm run build
+//   app.use(express.static(path.join(__dirname, "client/build")));
+// }
 
 console.log(path.join(__dirname, "client/build"));
 // **routes**
@@ -270,7 +273,9 @@ app.get("/victorian", async (req, res) => {
 });
 
 
-
+// app.get("/*", (req,res)=>{
+//   res.sendFile(path.join(__dirname, "client/build/index.html"))
+// })
 // listen
 
 app.listen(PORT, () => {
