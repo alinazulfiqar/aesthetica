@@ -17,9 +17,8 @@ app.use(express.json());
 
 
 
-if(process.env.NODE_ENV === "production"){
+
 app.use(express.static("build"));
-}
 console.log(path.join(__dirname, "client/build"));
 // **routes**
 // post to db
