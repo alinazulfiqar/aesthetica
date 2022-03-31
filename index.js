@@ -23,8 +23,9 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   //server static content
   //npm run build
-  app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(express.static("client/build"));
 }
+app.use(routes)
 
 console.log(path.join(__dirname, "client/build"));
 // **routes**
