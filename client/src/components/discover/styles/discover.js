@@ -1,7 +1,9 @@
 import styled from "styled-components/macro";
 
 export const Container = styled.div`
-
+// @media(max-width:840px){
+//   margin-left: ${({hideMenu})=> hideMenu ? 'auto' : '20vw'} 
+// }
   margin-left: 20vw;
   background: #000000;
 `;
