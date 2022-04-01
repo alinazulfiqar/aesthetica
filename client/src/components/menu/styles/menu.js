@@ -39,7 +39,7 @@ export const Container = styled.div`
     ::-webkit-scrollbar-thumb:hover {
     background:rgb(54, 56, 58); 
 
- 
+ z-index:5;
 `;
 
 export const List = styled.ul`
