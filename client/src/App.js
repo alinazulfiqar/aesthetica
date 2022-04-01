@@ -27,6 +27,7 @@ function App() {
         headers: { token: localStorage.token },
       });
       const parseRes = await response.json();
+      console.log(parseRes);
       parseRes.verified === true
         ? dispatch({ type: AUTHENTICATED, payload: parseRes.user })
         : dispatch({ type: NOT_AUTHENTICATED });
