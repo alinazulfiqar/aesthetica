@@ -26,6 +26,7 @@ const currentUser = useSelector((state) =>
     
     state.authorization.currentUser.userID 
   );
+console.log(currentUser);
 
   const postHandler = async () => {
     try {
