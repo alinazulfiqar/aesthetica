@@ -22,7 +22,7 @@ function App() {
   const isLoggedIn = useSelector((state) => state.authorization.loggedIn);
   async function isAuth() {
     try {
-      const response = await fetch("http://localhost:5000/auth/is-verify", {
+      const response = await fetch("auth/is-verify", {
         method: "GET",
         headers: { token: localStorage.token },
       });
