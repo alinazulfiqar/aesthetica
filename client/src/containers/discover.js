@@ -476,7 +476,7 @@ export function DiscoverContainer({ children }) {
                         }}
                         src={upvote}
                         voted={
-                          voted.voted === true && voted.id === entry.id||
+                          voted.voted === true && voted.id === entry.id && 
                           promptUp.includes(entry.id) ||
                           userVotes.some(item=> item.c_id === entry.id && item.values === 'upvote')
                            && variable === true
@@ -502,10 +502,9 @@ export function DiscoverContainer({ children }) {
                         src={downvote}
                         downvoted={
                           downvoted.voted === true &&
-                            downvoted.id === entry.id  ||
+                          downvoted.id === entry.id  &&
                           promptDown.includes(entry.id) ||
                           userVotes.some(item=> item.c_id === entry.id && item.values === 'downvote')
-                          
                           && variable === false
                             ? true
                             : false
