@@ -16,6 +16,7 @@ import CreatePage from "./pages/create";
 import Type from "./pages/type";
 import { ToastContainer } from "react-toastify";
 import MyPost from "./pages/myposts";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function App() {
     <>
       <FilterContextProvider>
         <HashRouter>
-          {/* <ScrollToTop/> */}
+          <ScrollToTop/>
           <Routes>
             <Route path={ROUTES.HOME} element={<Discover />}></Route>
             <Route path={`watch/:id`} element={<Item />}></Route>
@@ -52,8 +53,8 @@ function App() {
             <Route path={`play/:id`} element={<Item />}></Route>
             <Route path={ROUTES.LOGIN} element={<Login />} />
             <Route path={ROUTES.SIGNUP} element={<Signup />} />
-            <Route path={ROUTES.CREATE} element={<CreatePage />} />
-            <Route path={ROUTES.POSTS} element={<MyPost/>}/>
+            <Route path={ROUTES.CREATE} element={isLoggedIn ? <CreatePage /> : <Login/>} />
+            <Route path={ROUTES.POSTS} element={isLoggedIn ? <MyPost /> : <Login />}/>
             <Route
               path="/my-list"
               element={isLoggedIn ? <MyList /> : <Login />}

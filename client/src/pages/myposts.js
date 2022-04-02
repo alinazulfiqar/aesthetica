@@ -26,13 +26,12 @@ export default function MyPost({ children }) {
 
   const navigate = useNavigate()
  
-const currentUser = useSelector((state) =>
-state.authorization.currentUser.userID
+  const currentUser = useSelector((state) =>
+  state.authorization.currentUser.userID
   ? state.authorization.currentUser.userID
   : state.authorization.currentUser
 );
 
-console.log("hello from myposts");
 const isLoggedIn = useSelector((state) => state.authorization.loggedIn);
 
 
