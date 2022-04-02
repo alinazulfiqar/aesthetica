@@ -67,10 +67,7 @@ export const Icon = styled.img`
 
   filter: invert(100%);
   :first-of-type {
-    filter: ${({ voted }) =>
-      voted === true
-        ? "invert(21%) sepia(100%) saturate(2096%) hue-rotate(289deg) brightness(116%) contrast(131%)"
-        : "invert(100%) sepia(100%) saturate(0%) hue-rotate(125deg) brightness(103%) contrast(103%)"};
+    padding-left: 0;
   }
 
   :nth-of-type(2) {

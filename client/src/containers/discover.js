@@ -354,9 +354,9 @@ export function DiscoverContainer({ children }) {
     if (userArray.length !== 0) {
       localStorage.setItem("uservotes", JSON.stringify(userArray));
       // return userArray;
-
-      setUserVotes(userArray)
     }
+      setUserVotes(userArray)
+    
   };
 
   useEffect(() => {
@@ -382,9 +382,9 @@ export function DiscoverContainer({ children }) {
 
 
   useEffect(() => {
-    if (getVotes().length !== 0) {
+      getVotes()
       userVoteHandler();
-    }
+    
 
     if (downvoted.id === voted.id && downvoted.voted === true) {
       setVariable(false)
@@ -475,19 +475,29 @@ export function DiscoverContainer({ children }) {
                           }
                         }}
                         src={upvote}
+                        // voted={
+                        //   voted.voted === true && voted.id === entry.id||
+                        //   promptUp.includes(entry.id) ||
+                        //   JSON.parse(localStorage.getItem("uservotes"))?.some(
+                        //     (item) =>
+                        //       item.c_id === entry.id &&
+                        //       item.values === "upvote" &&
+                        //       item.u_id === currentUser
+                        //   ) ||
+                        //   userVotes.some(item=> item.c_id === entry.id && item.values === "upvote")
+                        //    && variable === true
+                        //     ? true
+                        //     : false
+                        // }
                         voted={
-                          voted.voted === true && voted.id === entry.id||
-                          promptUp.includes(entry.id) ||
-                          JSON.parse(localStorage.getItem("uservotes"))?.some(
-                            (item) =>
-                              item.c_id === entry.id &&
-                              item.values === "upvote" &&
-                              item.u_id === currentUser
-                          ) ||
-                          userVotes.some(item=> item.c_id === entry.id && item.values === "upvote")
-                           && variable === true
-                            ? true
-                            : false
+                          voted.voted === true && voted.id === entry.id ||
+                            promptUp.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="upvote") || 
+                            JSON.parse(localStorage.getItem("uservotes"))?.some(
+                                  (item) =>
+                                    item.c_id === entry.id &&
+                                    item.values === "upvote" &&
+                                    item.u_id === currentUser
+                                ) 
                         }
                       ></Discover.ItemUpvote>
                       <Discover.Count>
@@ -506,20 +516,31 @@ export function DiscoverContainer({ children }) {
                           }
                         }}
                         src={downvote}
-                        downvoted={
-                          downvoted.voted === true &&
-                            downvoted.id === entry.id  ||
-                          promptDown.includes(entry.id) ||
-                          JSON.parse(localStorage.getItem("uservotes"))?.some(
-                            (item) =>
-                              item.c_id === entry.id &&
-                              item.values === "downvote" &&
-                              item.u_id === currentUser ||
-                          userVotes.some(item=> item.c_id === entry.id && item.values === "downvote")
+                        // downvoted={
+                        //   downvoted.voted === true &&
+                        //     downvoted.id === entry.id  ||
+                        //   promptDown.includes(entry.id) ||
+                        //   JSON.parse(localStorage.getItem("uservotes"))?.some(
+                        //     (item) =>
+                        //       item.c_id === entry.id &&
+                        //       item.values === "downvote" &&
+                        //       item.u_id === currentUser ||
+                        //   userVotes.some(item=> item.c_id === entry.id && item.values === "downvote")
 
-                          ) && variable === false
-                            ? true
-                            : false
+                        //   ) && variable === false
+                        //     ? true
+                        //     : false
+                        // }
+                        downvoted={
+                          downvoted.voted === true && downvoted.id === entry.id 
+                        ||  promptDown.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="downvote") || 
+                        JSON.parse(localStorage.getItem("uservotes"))?.some(
+                              (item) =>
+                                item.c_id === entry.id &&
+                                item.values === "downvote" &&
+                                item.u_id === currentUser
+                            ) 
+
                         }
                       />
 
