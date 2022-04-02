@@ -34,7 +34,11 @@ export default function Login({ children }) {
         localStorage.setItem("token", parseRes.token);
         dispatch({ type: AUTHENTICATED, payload: parseRes.authUser });
         redirectLocation.includes("my-list")
-          ? navigate("/my-list")
+          ? navigate(ROUTES.LIST)
+          : navigate(ROUTES.HOME);
+
+        redirectLocation.includes("my-posts")
+          ? navigate(ROUTES.POSTS)
           : navigate(ROUTES.HOME);
       }
     } catch (err) {

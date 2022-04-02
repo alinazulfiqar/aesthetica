@@ -10,6 +10,7 @@ import play from "../images/play.svg";
 import deleteIcon from "../images/deleteIcon.svg"
 import { useSelector } from "react-redux";
 import Modal from "../components/modal"
+import { useNavigate } from "react-router-dom";
 
 // reactjs-popup
 
@@ -22,29 +23,39 @@ export default function MyPost({ children }) {
   //   typeof(state.authorization.currentUser) === Object ?
   //   state.authorization.currentUser.userID : state.authorization.currentUser
   // );
-  const currentUser = useSelector((state) =>
-  state.authorization.currentUser.userID
-    ? state.authorization.currentUser.userID
-    : state.authorization.currentUser
+
+  const navigate = useNavigate()
+ 
+const currentUser = useSelector((state) =>
+state.authorization.currentUser.userID
+  ? state.authorization.currentUser.userID
+  : state.authorization.currentUser
 );
 
-    
+const isLoggedIn = useSelector((state) => state.authorization.loggedIn);
+
 
   const postHandler = async () => {
-    try {
-      const res = await fetch("/post/allposts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id: currentUser }),
-      });
-      const parseRes = await res.json();
-      setContent(parseRes);
-      setContentUpdated(false)
-    } catch (err) {
-      console.error(err.message);
+    if (isLoggedIn){
+      try {
+        const res = await fetch("/post/allposts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user_id: currentUser }),
+        });
+        const parseRes = await res.json();
+        setContent(parseRes);
+        setContentUpdated(false)
+      } catch (err) {
+        console.error(err.message);
+      }
     }
+    else{
+      navigate(ROUTES.LOGIN)
+    }
+    
   };
 
   const removeFromPostHandler = async (id)=> {
