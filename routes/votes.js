@@ -49,6 +49,7 @@ router.post("/votes", async (req, res) => {
 router.get("/votestable", async (req, res) => {
   try {
     const votes = await pool.query("SELECT * FROM votes");
+    console.log(votes.rows);
     return res.json(votes.rows);
   } catch (err) {
     console.error(err);
