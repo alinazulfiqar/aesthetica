@@ -63,6 +63,8 @@ export const CommentBar = styled.div`
 export const Icon = styled.img`
   width: 1.5rem;
   height: 1.5rem;
+  padding-left: .3rem;
+
   filter: invert(100%);
   :first-of-type {
     filter: ${({ voted }) =>

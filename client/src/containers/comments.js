@@ -21,15 +21,13 @@ export function CommentsContainer({ children, ...restProps }) {
 
   const [reply, setReply] = useState({});
 
-
   const [parentID, setParentID] = useState();
 
   const [showReply, setShowReply] = useState({ show: false, comment_id: 0 });
 
   const [edit, setEdit] = useState({show: false, comment_id: 0})
 
-  const [username, setUsername] = useState("")
-
+  const [contentUpdated, setContentUpdated] = useState(false)
   const currentUser = useSelector((state) =>
     state.authorization.currentUser.userID
       ? state.authorization.currentUser.userID
@@ -104,6 +102,7 @@ export function CommentsContainer({ children, ...restProps }) {
       });
       const parseRes = await res.json();
       setReply("");
+      setShowReply({show:false, comment_id:+id})
     } catch (err) {
       console.error(err);
     }
@@ -114,6 +113,7 @@ export function CommentsContainer({ children, ...restProps }) {
       const response = await fetch(`/comments/${+id}`);
       const comments = await response.json();
       setCommentsArray(comments);
+      setContentUpdated(false)
       // console.log(comments);
     } catch (err) {
       console.error(err);
@@ -252,6 +252,8 @@ export function CommentsContainer({ children, ...restProps }) {
             comment_id: +commentID
           }),
         });
+
+        setContentUpdated(true)
         
       } catch (err) {
         console.error(err.message)
@@ -278,9 +280,7 @@ export function CommentsContainer({ children, ...restProps }) {
             </Comments.TextSmall>
             <Comments.CommentText>{item.comment_text}</Comments.CommentText>
             <Comments.CommentBar >
-              <Comments.Icon src={upvote} />
-              <Comments.TextSmall>1</Comments.TextSmall>
-              <Comments.Icon src={downvote} />
+           
               <Comments.Icon
                 src={replyIcon}
                 onClick={() => showReplyHandler(item.comment_id)}
@@ -353,7 +353,7 @@ export function CommentsContainer({ children, ...restProps }) {
 
   useEffect(() => {
     fetchComments();
-  }, [commentsArray]);
+  }, [commentsArray, contentUpdated]);
 
   return (
     <Comments {...restProps}>
