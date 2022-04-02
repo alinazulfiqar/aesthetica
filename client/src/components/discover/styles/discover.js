@@ -3,7 +3,10 @@ import styled from "styled-components/macro";
 export const Container = styled.div`
   margin-left: 20vw;
   background: #000000;
-  z-index: 0;
+  z-index: 1;
+  @media(max-width:840px){
+    margin-left:0;
+  }
 `;
 const backgrounds = [
   "https://64.media.tumblr.com/2bc084c044357fe1e782dd67441c9d4b/3c6fb81d2bd9fefd-f8/s1280x1920/edfef4fed1bed78493c9160d73553b84cb2eb073.gif",

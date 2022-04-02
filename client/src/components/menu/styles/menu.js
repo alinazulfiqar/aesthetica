@@ -5,6 +5,7 @@ export const Container = styled.div`
   // add a min-width for this
   
   transform: ${({hideMenu}) => hideMenu ? 'translateX(-295px)' : 'translateX(0);'};
+  transition: transform 0.2s;
   min-width: 20vw;
 }
 @media(max-width:400px){
@@ -50,6 +51,7 @@ export const List = styled.ul`
 
   padding-right: 0;
   padding-left: 0;
+  margin-bottom: 2rem;
   width: 100%;
 `;
 
@@ -58,7 +60,9 @@ export const ListItem = styled.li`
 `;
 
 export const Icon = styled.img`
-width: 15vw;
+min-width: 10vw;
+margin-top: 0.5rem;
+margin-bottom: 1.5rem;
 `;
 
 export const Text = styled.p`
@@ -68,6 +72,7 @@ export const Text = styled.p`
   transition: border-bottom 0.2s;
   font-size: 1.2rem;
   letter-spacing: 1.5px;
+  transition: all 0.2s ease-out;
 
   :hover {
     border-bottom: 4px solid hsl(317 100% 54%);

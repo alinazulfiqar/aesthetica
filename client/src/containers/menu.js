@@ -6,12 +6,14 @@ import right from "../images/right.svg";
 import up from "../images/up.svg";
 import logo from "../images/logo.svg"
 import logo2 from "../images/logo2.svg"
+import logo3 from "../images/logo3.svg"
+
 
 export function MenuContainer({ children }) {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
 
-  const { filterArray, setFilterArray, medium, setMedium } = useContext(FilterContext);
+  const { filterArray, setFilterArray, medium, setMedium, hideMenu, setHideMenu } = useContext(FilterContext);
   // const [push, setPush] = useState([]);
 
   const [isChecked, setIsChecked] = useState({});
@@ -78,9 +80,9 @@ export function MenuContainer({ children }) {
   ];
   return (
     <Menu>
-      <Menu.List>
+      <Menu.List onClick={()=>setHideMenu(true)}>
         <Menu.ListItem to="/">
-          <Menu.Icon src={logo2}/>
+          <Menu.Icon src={logo3}/>
         </Menu.ListItem>
         <Menu.ListItem to="/cottagecore">
           <Menu.Text>Cottagecore</Menu.Text>
@@ -102,6 +104,7 @@ export function MenuContainer({ children }) {
         </Menu.ListItem>
       </Menu.List>
 
+<div>
       <Menu.FilterContainer onClick={() => onClickHandler()}>
         <Menu.FilterIcon src={show ? up : right} />
         <Menu.FilterTitle>FILTER BY GENRE</Menu.FilterTitle>
@@ -155,6 +158,7 @@ export function MenuContainer({ children }) {
           ))}
         </Menu.FilterListContainer>
       ) : null}
+      </div>
     </Menu>
   );
 }

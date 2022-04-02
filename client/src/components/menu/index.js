@@ -21,8 +21,8 @@ export default function Menu({ children, ...restProps }) {
   return <Container hideMenu={hideMenu} {...restProps}>{children}</Container>;
 }
 
-Menu.List = function MenuList({ children }) {
-  return <List>{children}</List>;
+Menu.List = function MenuList({ children,...restProps }) {
+  return <List {...restProps}>{children}</List>;
 };
 
 Menu.ListItem = function MenuListItem({ to, children }) {
