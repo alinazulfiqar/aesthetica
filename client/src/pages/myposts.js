@@ -32,7 +32,7 @@ state.authorization.currentUser.userID
   : state.authorization.currentUser
 );
 
-console.log(currentUser);
+console.log("hello from myposts");
 const isLoggedIn = useSelector((state) => state.authorization.loggedIn);
 
 
