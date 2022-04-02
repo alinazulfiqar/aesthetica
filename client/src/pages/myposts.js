@@ -18,10 +18,15 @@ export default function MyPost({ children }) {
   const [showModal, setShowModal] = useState({state:false, id:0})
   const [content, setContent] = useState([]);
   const [contentUpdated, setContentUpdated] = useState(false)
+  // const currentUser = useSelector((state) =>
+  //   typeof(state.authorization.currentUser) === Object ?
+  //   state.authorization.currentUser.userID : state.authorization.currentUser
+  // );
   const currentUser = useSelector((state) =>
-    typeof(state.authorization.currentUser) === Object ?
-    state.authorization.currentUser.userID : state.authorization.currentUser
-  );
+  state.authorization.currentUser.userID
+    ? state.authorization.currentUser.userID
+    : state.authorization.currentUser
+);
 
     
 
