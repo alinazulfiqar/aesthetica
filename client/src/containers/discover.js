@@ -352,7 +352,7 @@ export function DiscoverContainer({ children }) {
 
     // set/retrieve prev votes from user
     if (userArray.length !== 0) {
-      // localStorage.setItem("uservotes", JSON.stringify(userArray));
+      localStorage.setItem("uservotes", JSON.stringify(userArray));
       // return userArray;
 
       setUserVotes(userArray)
@@ -476,9 +476,15 @@ export function DiscoverContainer({ children }) {
                         }}
                         src={upvote}
                         voted={
-                          voted.voted === true && voted.id === entry.id|| 
+                          voted.voted === true && voted.id === entry.id||
                           promptUp.includes(entry.id) ||
-                          userVotes.some(item=> item.c_id === entry.id && item.values === 'upvote')
+                          JSON.parse(localStorage.getItem("uservotes"))?.some(
+                            (item) =>
+                              item.c_id === entry.id &&
+                              item.values === "upvote" &&
+                              item.u_id === currentUser
+                          ) ||
+                          userVotes.some(item=> item.c_id === entry.id && item.values === "upvote")
                            && variable === true
                             ? true
                             : false
@@ -504,9 +510,14 @@ export function DiscoverContainer({ children }) {
                           downvoted.voted === true &&
                             downvoted.id === entry.id  ||
                           promptDown.includes(entry.id) ||
-                          userVotes.some(item=> item.c_id === entry.id && item.values === 'downvote')
-                          
-                          && variable === false
+                          JSON.parse(localStorage.getItem("uservotes"))?.some(
+                            (item) =>
+                              item.c_id === entry.id &&
+                              item.values === "downvote" &&
+                              item.u_id === currentUser ||
+                          userVotes.some(item=> item.c_id === entry.id && item.values === "downvote")
+
+                          ) && variable === false
                             ? true
                             : false
                         }
