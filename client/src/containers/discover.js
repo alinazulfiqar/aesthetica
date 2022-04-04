@@ -147,22 +147,7 @@ export function DiscoverContainer({ children }) {
           setVoted({ voted: true, id: id });
           setDownvoted({ voted: false, id: id });
           setPromptUp([...promptUp, id]);
-          // if (parseRes !== "deleted") {
-          //   dispatch({ type: VOTE, payload: { id, currentUser, value } });
-          // }
-
-          // make it so that both upvoted and downvoted are not in localstorage at the same time
-          // localStorage.setItem(
-          //   "uservotes",
-          //   JSON.stringify(
-          //     JSON.parse(localStorage.getItem("uservotes")).filter(
-          //       (item) =>
-          //         item.c_id !== id &&
-          //         item.values !== value &&
-          //         item.u_id !== currentUser
-          //     )
-          //   )
-          // );
+          
 
           if (parseRes == "deleted") {
             setVoted({ voted: false, id: id });
@@ -182,21 +167,7 @@ export function DiscoverContainer({ children }) {
           setVoted({ voted: false, id: id });
           setDownvoted({ voted: true, id: id });
           setPromptDown([...promptDown, id]);
-          // if (parseRes !== "deleted") {
-          //   dispatch({ type: VOTE, payload: { id, currentUser, value } });
-          // }
-
-          // localStorage.setItem(
-          //   "uservotes",
-          //   JSON.stringify(
-          //     JSON.parse(localStorage.getItem("uservotes")).filter(
-          //       (item) =>
-          //         item.c_id !== id &&
-          //         item.values !== value &&
-          //         item.u_id !== currentUser
-          //     )
-          //   )
-          // );
+        
           if (parseRes == "deleted") {
             setDownvoted({ voted: false, id: id });
             const filtered = promptDown.filter((item) => item !== id);
@@ -321,7 +292,6 @@ export function DiscoverContainer({ children }) {
     setFilterApplied(false);
     setMediumFilterApplied(false);
     getVotes();
-    // console.log(filterArray.map((array) => array.values));
     if (isLoggedIn) {
       getUserVotes();
     }
@@ -352,8 +322,6 @@ export function DiscoverContainer({ children }) {
 
     }
 
-    // NOTE FROM 2/14:
-    // voting is wonky rn, pls return to fix; when u vote on something, it doesn't show voted after refresh unless voted or downvotdd are triggered again. FIx this. THanks
   }, [voted, downvoted, setVoted, setDownvoted]);
 
   useEffect(() => {
@@ -431,20 +399,7 @@ export function DiscoverContainer({ children }) {
                           }
                         }}
                         src={upvote}
-                        // voted={
-                        //   voted.voted === true && voted.id === entry.id||
-                        //   promptUp.includes(entry.id) ||
-                        //   JSON.parse(localStorage.getItem("uservotes"))?.some(
-                        //     (item) =>
-                        //       item.c_id === entry.id &&
-                        //       item.values === "upvote" &&
-                        //       item.u_id === currentUser
-                        //   ) ||
-                        //   userVotes.some(item=> item.c_id === entry.id && item.values === "upvote")
-                        //    && variable === true
-                        //     ? true
-                        //     : false
-                        // }
+                       
                         voted={
                           voted.voted === true && voted.id === entry.id ||
                             promptUp.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="upvote") 
@@ -467,21 +422,7 @@ export function DiscoverContainer({ children }) {
                           }
                         }}
                         src={downvote}
-                        // downvoted={
-                        //   downvoted.voted === true &&
-                        //     downvoted.id === entry.id  ||
-                        //   promptDown.includes(entry.id) ||
-                        //   JSON.parse(localStorage.getItem("uservotes"))?.some(
-                        //     (item) =>
-                        //       item.c_id === entry.id &&
-                        //       item.values === "downvote" &&
-                        //       item.u_id === currentUser ||
-                        //   userVotes.some(item=> item.c_id === entry.id && item.values === "downvote")
-
-                        //   ) && variable === false
-                        //     ? true
-                        //     : false
-                        // }
+                       
                         downvoted={
                           downvoted.voted === true && downvoted.id === entry.id 
                         ||  promptDown.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="downvote") 

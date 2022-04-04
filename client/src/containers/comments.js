@@ -165,22 +165,6 @@ export function CommentsContainer({ children, ...restProps }) {
     }
   }
 
-  // function nestedComments(commentList) {
-  //   const commentMap = {};
-
-  //   commentList.forEach((comment) => (commentMap[comment.id] = comment));
-
-  //   commentList.forEach((comment) => {
-  //     if (comment.parent_comment_id !== null) {
-  //       const parent = commentMap[comment.parent_comment_id];
-  //       (parent.children = parent.children || []).push(comment);
-  //     }
-  //   });
-
-  //   return commentList.filter((comment) => {
-  //     return comment.parent_comment_id === null;
-  //   });
-  // }
 
   const ReplyBody = ({ item }) => {
     return (
@@ -196,27 +180,7 @@ export function CommentsContainer({ children, ...restProps }) {
       ></Comments.CommentBox>
     );
   };
-  const testerFunction = () => {
-    commentsArray.map((currelement, index, array) => {
-      array
-        .filter(
-          (arrayComment) =>
-            arrayComment.parent_comment_id === currelement.comment_id
-        )
-        .map((item) => repliesArray.push(item));
-    });
-    // console.log(repliesArray);
-    // commentsArray.filter((comment, index, array) =>
-    //   comment.parent_comment_id
-    //     ? array
-    //         .filter(
-    //           (arrayComment) =>
-    //             arrayComment.parent_comment_id === comment.comment_id
-    //         )
-    //         .map((commentWparents) => console.log(commentWparents))
-    //     : null
-    // );
-  };
+ 
 
   const editCommentHandler = async(e, commentID) => {
     e.preventDefault()
@@ -380,4 +344,4 @@ export function CommentsContainer({ children, ...restProps }) {
   );
 }
 
-// working on stuff here
+

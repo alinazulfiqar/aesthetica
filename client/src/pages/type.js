@@ -64,7 +64,6 @@ export default function Type({ children }) {
   // getting filters to apply to content
   const [filterApplied, setFilterApplied] = useState(false);
   const [mediumFilterApplied, setMediumFilterApplied] = useState(false);
-  const [mediumArray, setMediumArray] = useState([])
   const [filteredContent, setFilteredContent] = useState([]);
   const { filterArray, setFilterArray, medium, setMedium, hideMenu, setHideMenu } = useContext(FilterContext);
 
@@ -136,22 +135,7 @@ export default function Type({ children }) {
           setVoted({ voted: true, id: id });
           setDownvoted({ voted: false, id: id });
           setPromptUp([...promptUp, id]);
-          // if (parseRes !== "deleted") {
-          //   dispatch({ type: VOTE, payload: { id, currentUser, value } });
-          // }
-
-          // make it so that both upvoted and downvoted are not in localstorage at the same time
-          // localStorage.setItem(
-          //   "uservotes",
-          //   JSON.stringify(
-          //     JSON.parse(localStorage.getItem("uservotes")).filter(
-          //       (item) =>
-          //         item.c_id !== id &&
-          //         item.values !== value &&
-          //         item.u_id !== currentUser
-          //     )
-          //   )
-          // );
+        
 
           if (parseRes == "deleted") {
             setVoted({ voted: false, id: id });
@@ -171,21 +155,7 @@ export default function Type({ children }) {
           setVoted({ voted: false, id: id });
           setDownvoted({ voted: true, id: id });
           setPromptDown([...promptDown, id]);
-          // if (parseRes !== "deleted") {
-          //   dispatch({ type: VOTE, payload: { id, currentUser, value } });
-          // }
-
-          // localStorage.setItem(
-          //   "uservotes",
-          //   JSON.stringify(
-          //     JSON.parse(localStorage.getItem("uservotes")).filter(
-          //       (item) =>
-          //         item.c_id !== id &&
-          //         item.values !== value &&
-          //         item.u_id !== currentUser
-          //     )
-          //   )
-          // );
+     
           if (parseRes == "deleted") {
             setDownvoted({ voted: false, id: id });
             const filtered = promptDown.filter((item) => item !== id);

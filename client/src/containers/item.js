@@ -213,16 +213,7 @@ export function ItemContainer({ children }) {
                   src={item.imageurl}
                   alt="Product Image"
                 />
-                {/* <Item.Icon src={add} />
-                <Item.Icon
-                  src={
-                    item.medium === "watch"
-                      ? watch
-                      : item.medium === "read"
-                      ? book
-                      : play
-                  }
-                /> */}
+           
                 <Item.TextCard>
                   <Item.Text>{item.description}</Item.Text>
                 </Item.TextCard>

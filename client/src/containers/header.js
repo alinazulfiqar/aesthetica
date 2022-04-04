@@ -11,8 +11,6 @@ import hamburger from "../images/hamburger.svg"
 import close from "../images/close.svg"
 import { FilterContext } from "../components/menu/FilterContext";
 import addIcon from "../images/addIcon.svg"
-import logo from "../images/logo.svg"
-import logo2 from "../images/logo2.svg"
 
 export default function HeaderContainer({ children }) {
 
@@ -20,10 +18,7 @@ export default function HeaderContainer({ children }) {
   const dispatch = useDispatch();
   const authStatus = useSelector((state) => state.authorization.loggedIn);
   const [showBar, setShowBar] = useState(false);
-  // const userHandler = () => {
-  //   setShowBar(!showBar);
-  // };
-
+ 
   const logOutHandler = () => {
     if (authStatus) {
       localStorage.removeItem("token");
