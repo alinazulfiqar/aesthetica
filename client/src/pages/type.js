@@ -317,6 +317,14 @@ export default function Type({ children }) {
     }
   }, []);
 
+  useEffect(() => {
+    getContent()
+    getListHandler();
+    setFilterApplied(false);
+    setMediumFilterApplied(false);
+    getVotes();
+  }, [idParams]);
+
 
   useEffect(() => {
     let result = content;
@@ -329,6 +337,7 @@ export default function Type({ children }) {
 
   useEffect(() => {
       getVotes()
+      getUserVotes();
 
     if (downvoted.id === voted.id && downvoted.voted === true) {
       setVariable(false)
