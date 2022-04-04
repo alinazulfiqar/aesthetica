@@ -48,6 +48,7 @@ export const PanelTitle = styled.h2`
   text-align: left;
   color: #c4aead;
   text-transform: capitalize;
+  cursor: pointer;
 `;
 
 export const TitleBig = styled.h1`

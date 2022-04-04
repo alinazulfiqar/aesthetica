@@ -63,49 +63,19 @@ export function DiscoverContainer({ children }) {
 
   // state for rendering content
   const [content, setContent] = useState([]);
-  const [cc, setCC] = useState([]);
-  const [steampunk, setSteampunk] = useState([]);
-  const [cyberpunk, setCyberpunk] = useState([]);
-  const [da, setDa] = useState([]);
-  const [medieval, setMedieval] = useState([]);
-  const [victorian, setVictorian] = useState([]);
+
 
   // getting filters to apply to content
   const [filterApplied, setFilterApplied] = useState(false);
   const [mediumFilterApplied, setMediumFilterApplied] = useState(false);
-  const [mediumArray, setMediumArray] = useState([])
   const [filteredContent, setFilteredContent] = useState([]);
-  const { filterArray, setFilterArray, medium, setMedium } = useContext(FilterContext);
+  const { filterArray, setFilterArray, medium, setMedium, hideMenu, setHideMenu } = useContext(FilterContext);
 
   async function getContent() {
     const resCC = await fetch("/content");
     const array = await resCC.json();
     setContent(getShuffledArray(array));
-    // setCC(getShuffledArray(filterFunction(array, "cottagecore")));
-    // setSteampunk(getShuffledArray(filterFunction(array, "steampunk")));
-    // setCyberpunk(getShuffledArray(filterFunction(array, "cyberpunk")));
-    // setDa(getShuffledArray(filterFunction(array, "dark-academia")));
-    // setMedieval(getShuffledArray(filterFunction(array, "medieval")));
-    // setVictorian(getShuffledArray(filterFunction(array, "victorian")));
   }
-
-  // functions/handlers
-
-  // const genreFilter = (array) => {
-  //   setFilterApplied(true);
-
-  //   const genreArr = filterArray.values;
-  //   if (genreArr === filterArray.values && filterArray.checked === false) {
-  //     setFilterApplied(false);
-  //   }
-  //   const filtered = array.filter((element) => element.genre === genreArr);
-  //   setFilteredArray(filtered);
-
-  //   if (!filterArray || filterArray.length === 0) {
-  //     setFilterApplied(false);
-  //   }
-  //   console.log(filterArray);
-  // };
 
   const genreFilter = (array) => {
 
@@ -303,24 +273,6 @@ export function DiscoverContainer({ children }) {
       console.error(err.message)
     }
   }
-  // post version that got a votes count
-  async function getVotes1(id) {
-    try {
-      const res = await fetch("/vote/allvotes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ c_id: id }),
-      });
-
-      const parseRes = await res.json();
-      return parseRes;
-      // console.log(parseRes, id);
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   // get version
 
@@ -347,18 +299,22 @@ export function DiscoverContainer({ children }) {
     return count;
   };
 
-  const userVoteHandler = () => {
-    const userArray = votes.filter((item) => item.u_id === currentUser);
+  async function getUserVotes() {
+    try {
+      const res = await fetch("/vote/uservotes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: currentUser }),
+      });
 
-    // set/retrieve prev votes from user
-    if (userArray.length !== 0) {
-      localStorage.setItem("uservotes", JSON.stringify(userArray));
-      // return userArray;
+      const parseRes = await res.json();
+      setUserVotes(parseRes)
+    } catch (err) {
+      console.error(err);
     }
-      setUserVotes(userArray)
-    
-  };
-
+  }
   useEffect(() => {
     getContent();
     getListHandler();
@@ -367,7 +323,7 @@ export function DiscoverContainer({ children }) {
     getVotes();
     // console.log(filterArray.map((array) => array.values));
     if (isLoggedIn) {
-      userVoteHandler();
+      getUserVotes();
     }
   }, []);
 
@@ -383,7 +339,7 @@ export function DiscoverContainer({ children }) {
 
   useEffect(() => {
       getVotes()
-      userVoteHandler();
+      getUserVotes()
     
 
     if (downvoted.id === voted.id && downvoted.voted === true) {
@@ -413,7 +369,7 @@ export function DiscoverContainer({ children }) {
     "victorian",
   ];
   return (
-    <Discover>
+    <Discover onClick={()=> hideMenu===false ? setHideMenu(true) : null}>
       <ToastContainer
       position="top-center"
       autoClose={1200}
@@ -431,7 +387,7 @@ export function DiscoverContainer({ children }) {
       </Discover.Header>
       {genres.map((item, index) => (
         <Discover.Panel key={index}>
-          <Discover.PanelTitle>{item}</Discover.PanelTitle>
+          <Discover.PanelTitle onClick={()=> navigate(`/${item}`)}>{item}</Discover.PanelTitle>
           <Discover.PanelRow>
 
             {(filterApplied || mediumFilterApplied ? filteredContent : content)
@@ -491,13 +447,8 @@ export function DiscoverContainer({ children }) {
                         // }
                         voted={
                           voted.voted === true && voted.id === entry.id ||
-                            promptUp.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="upvote") || 
-                            JSON.parse(localStorage.getItem("uservotes"))?.some(
-                                  (item) =>
-                                    item.c_id === entry.id &&
-                                    item.values === "upvote" &&
-                                    item.u_id === currentUser
-                                ) 
+                            promptUp.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="upvote") 
+                            && variable === true
                         }
                       ></Discover.ItemUpvote>
                       <Discover.Count>
@@ -533,13 +484,9 @@ export function DiscoverContainer({ children }) {
                         // }
                         downvoted={
                           downvoted.voted === true && downvoted.id === entry.id 
-                        ||  promptDown.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="downvote") || 
-                        JSON.parse(localStorage.getItem("uservotes"))?.some(
-                              (item) =>
-                                item.c_id === entry.id &&
-                                item.values === "downvote" &&
-                                item.u_id === currentUser
-                            ) 
+                        ||  promptDown.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="downvote") 
+                        && variable === false
+                    
 
                         }
                       />

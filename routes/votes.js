@@ -82,3 +82,17 @@ router.post("/allvotes", async (req, res) => {
     console.error(err);
   }
 });
+// get all current user votes
+router.post("/uservotes", async (req, res) => {
+  try {
+    const { user_id } = req.body;
+
+    const currentUserVotes = await pool.query(
+      "SELECT * FROM votes WHERE u_id=$1",
+      [user_id]
+    );
+   return res.json(currentUserVotes.rows)
+  } catch (err) {
+    console.error(err);
+  }
+});

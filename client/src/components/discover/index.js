@@ -33,8 +33,8 @@ Discover.Panel = function DiscoverPanel({ children }) {
   return <Panel>{children}</Panel>;
 };
 
-Discover.PanelTitle = function DiscoverPanelTitle({ children }) {
-  return <PanelTitle>{children}</PanelTitle>;
+Discover.PanelTitle = function DiscoverPanelTitle({ children, ...restProps }) {
+  return <PanelTitle {...restProps}>{children}</PanelTitle>;
 };
 Discover.Text = function DiscoverText({ children }) {
   return <Text>{children}</Text>;

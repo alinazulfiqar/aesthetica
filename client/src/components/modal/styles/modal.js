@@ -18,7 +18,6 @@ background: radial-gradient(
     rgba(58, 3, 88, 1) 100%
   );
 @media(max-width:840px){
-top: 100%;
 left: 25%;
 }
 @media(max-width:640px){

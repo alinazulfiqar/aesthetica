@@ -5,7 +5,7 @@ export const Container = styled.div`
   // add a min-width for this
   
   transform: ${({hideMenu}) => hideMenu ? 'translateX(-295px)' : 'translateX(0);'};
-  transition: transform 0.2s;
+  transition: transform 0.2s ease-in;
   min-width: 20vw;
 }
 @media(max-width:400px){

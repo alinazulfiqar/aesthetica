@@ -19,11 +19,9 @@ import { useParams } from "react-router";
 import { useNavigate } from "react-router";
 
 export default function Type({ children }) {
-    const idParams = useParams()
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
-
-      // change name later this is for voting variable
+  // change name later this is for voting variable
 
   const [variable, setVariable] = useState(false)
 
@@ -35,145 +33,84 @@ export default function Type({ children }) {
   );
   const isLoggedIn = useSelector((state) => state.authorization.loggedIn);
 
-  // list state management
-  const [inList, setInList] = useState([])
-  const [listUpdated, setListUpdated] = useState(false)
-
   // voting checks
   const [voted, setVoted] = useState({});
   const [downvoted, setDownvoted] = useState({});
+
   // active voting arrays
   const [promptUp, setPromptUp] = useState([]);
   const [promptDown, setPromptDown] = useState([]);
 
   // get upvotes/downvotes
-  const [userVotes, setUserVotes] = useState({});
 
+  const [userVotes, setUserVotes] = useState([])
   // // pass entry.id to getVotes function
   // get votes
   const [votes, setVotes] = useState([]);
-  const [count, setCount] = useState();
 
-  const [userData, setUserData] = useState([]);
 
-  const [counter, setCounter] = useState([]);
 
+  
+
+  // list state management
+  const [inList, setInList] = useState([])
+  const [listUpdated, setListUpdated] = useState(false)
+
+
+  
 
   // state for rendering content
-  const [content, setContent] = useState([]);
-  
 
   // getting filters to apply to content
   const [filterApplied, setFilterApplied] = useState(false);
   const [mediumFilterApplied, setMediumFilterApplied] = useState(false);
   const [mediumArray, setMediumArray] = useState([])
   const [filteredContent, setFilteredContent] = useState([]);
-  const { filterArray, setFilterArray, medium, setMedium } = useContext(FilterContext);
+  const { filterArray, setFilterArray, medium, setMedium, hideMenu, setHideMenu } = useContext(FilterContext);
 
+  const [content, setContent] = useState([])
+  const idParams = useParams(
 
-  // functions/handlers
-
+  )
   async function getContent () {
     const res = await fetch("/content")
     const parseRes = await res.json()
     setContent(parseRes.filter((content)=> content.type === idParams.id))
   }
 
+  const genreFilter = (array) => {
 
-
- const genreFilter = (array) => {
-
-   if (filterArray.length !== 0 && filterArray && filterArray.checked === true) {
-   setFilterApplied(true)
-     return array.filter((item)=> item.genre === filterArray.values)
+    if (filterArray.length !== 0 && filterArray && filterArray.checked === true) {
+    setFilterApplied(true)
+      return array.filter((item)=> item.genre === filterArray.values)
+    }
+    else {
+      setFilterApplied(false)
+     return array
+ 
+    }
+  }
+  const mediumFilter = (array) => {
+   if (medium.length !== 0 && medium && medium.checked === true) {
+     setMediumFilterApplied(true)
+     if (medium.values === "TV/movies"){
+      return array.filter((element)=> element.medium === "watch")
+  }
+  else if(medium.values === "books"){
+      return array.filter((element)=> element.medium === "read")
+  }
+  else if(medium.values === "games"){
+      return array.filter((element)=> element.medium === "play")
+  }
+     
    }
    else {
-     setFilterApplied(false)
-    return array
-
+     setMediumFilterApplied(false)
+     return array
+ 
    }
  }
- const mediumFilter = (array) => {
-  if (medium.length !== 0 && medium && medium.checked === true) {
-    setMediumFilterApplied(true)
-   
-    if (medium.values === "TV/movies"){
-        return array.filter((element)=> element.medium === "watch")
-    }
-    else if(medium.values === "books"){
-        return array.filter((element)=> element.medium === "read")
-    }
-    else if(medium.values === "games"){
-        return array.filter((element)=> element.medium === "play")
-    }
-  
-  }
-  else {
-    setMediumFilterApplied(false)
-    return array
 
-  }
-}
-  // const genreFilter = (array) => {
-  //   console.log(medium);
-  //   console.log(filterArray);
-  //   setFilterApplied(true);
-
-  //   const genreArr = filterArray.values;
-  //   const mediumValue = medium.values 
-  //   if (genreArr === filterArray.values && filterArray.checked === false) {
-  //   setFilterApplied(false);
-  //   }
-  //   const filtered = array.filter((element, index, arr) => element.genre === genreArr);
-  //   setFilteredArray(filtered);
-
-
-  //   if (mediumFilterApplied && filterApplied){
-  //     const filtered = array.filter((element)=> element.genre === genreArr && element.medium === (medium.value === "games" ? "play" : "books" ? "read" : "watch"))
-  //   setFilteredArray(filtered);
-
-  //   }
-  //   // const filtered2 = arr.filter((element)=> element.medium === )
-
-
-  //   if (!filterArray || filterArray.length === 0) {
-  //   setFilterApplied(false);
-  //   }
-  // };
-
-  // const mediumFilter = (array) => {
-  //     setMediumFilterApplied(true)
-
-  //     if (medium.values && medium.checked === false){
-  //       setMediumFilterApplied(false);
-  //     }
-  //     if (medium.values === "TV/movies"){
-  //       const filtered = array.filter((element)=> element.medium === "watch")
-  //     setFilteredArray(filtered)
-
-  //     }
-  //     else if(medium.values === "books"){
-  //       const filtered = array.filter((element)=> element.medium === "read")
-  //     setFilteredArray(filtered)
-
-
-  //     }
-  //     else if(medium.values === "games"){
-  //       const filtered = array.filter((element)=> element.medium === "play")
-  //     setFilteredArray(filtered)
-
-
-  //     }
-  //     console.log(medium.values);
-
-  //     if (!medium || medium.length ===0) {
-  //       setMediumFilterApplied(false);
-  //       }
-  // }
-
- 
-
-  
 
   const voteHandler = async (id, value) => {
     if (!isLoggedIn) {
@@ -198,7 +135,22 @@ export default function Type({ children }) {
           setVoted({ voted: true, id: id });
           setDownvoted({ voted: false, id: id });
           setPromptUp([...promptUp, id]);
-        
+          // if (parseRes !== "deleted") {
+          //   dispatch({ type: VOTE, payload: { id, currentUser, value } });
+          // }
+
+          // make it so that both upvoted and downvoted are not in localstorage at the same time
+          // localStorage.setItem(
+          //   "uservotes",
+          //   JSON.stringify(
+          //     JSON.parse(localStorage.getItem("uservotes")).filter(
+          //       (item) =>
+          //         item.c_id !== id &&
+          //         item.values !== value &&
+          //         item.u_id !== currentUser
+          //     )
+          //   )
+          // );
 
           if (parseRes == "deleted") {
             setVoted({ voted: false, id: id });
@@ -218,7 +170,21 @@ export default function Type({ children }) {
           setVoted({ voted: false, id: id });
           setDownvoted({ voted: true, id: id });
           setPromptDown([...promptDown, id]);
-        
+          // if (parseRes !== "deleted") {
+          //   dispatch({ type: VOTE, payload: { id, currentUser, value } });
+          // }
+
+          // localStorage.setItem(
+          //   "uservotes",
+          //   JSON.stringify(
+          //     JSON.parse(localStorage.getItem("uservotes")).filter(
+          //       (item) =>
+          //         item.c_id !== id &&
+          //         item.values !== value &&
+          //         item.u_id !== currentUser
+          //     )
+          //   )
+          // );
           if (parseRes == "deleted") {
             setDownvoted({ voted: false, id: id });
             const filtered = promptDown.filter((item) => item !== id);
@@ -240,26 +206,26 @@ export default function Type({ children }) {
       }
     }
   };
-    // get list info
-    const getListHandler = async () => {
-      if (isLoggedIn) {
-        try {
-          const res = await fetch("/my-list/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ currentUser: currentUser }),
-          });
-          const parseRes = await res.json();
-          setInList(parseRes) 
-          setListUpdated(false)     
-        } catch (err) {
-          console.error(err.message);
-        }
+  // get list info
+  const getListHandler = async () => {
+    if (isLoggedIn) {
+      try {
+        const res = await fetch("/my-list/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ currentUser: currentUser }),
+        });
+        const parseRes = await res.json();
+        setInList(parseRes) 
+        setListUpdated(false)     
+      } catch (err) {
+        console.error(err.message);
       }
-    };
-// add to list
+    }
+  }; 
+
   const listHandler = async (id) => {
     if (isLoggedIn) {
       try {
@@ -272,7 +238,6 @@ export default function Type({ children }) {
         });
         const parseRes = await res.json();
         setListUpdated(true)
-
       } catch (err) {
         console.error(err.message);
       }
@@ -296,24 +261,7 @@ export default function Type({ children }) {
       console.error(err.message)
     }
   }
-  // post version that got a votes count
-  async function getVotes1(id) {
-    try {
-      const res = await fetch("/vote/allvotes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ c_id: id }),
-      });
 
-      const parseRes = await res.json();
-      return parseRes;
-      // console.log(parseRes, id);
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   // get version
 
@@ -340,34 +288,35 @@ export default function Type({ children }) {
     return count;
   };
 
-  const userVoteHandler = () => {
-    const userArray = votes.filter((item) => item.u_id === currentUser);
-
-    // set/retrieve prev votes from user
-    if (userArray.length !== 0) {
-      localStorage.setItem("uservotes", JSON.stringify(userArray));
-      return userArray;
+    async function getUserVotes() {
+      try {
+        const res = await fetch("/vote/uservotes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user_id: currentUser }),
+        });
+  
+        const parseRes = await res.json();
+        setUserVotes(parseRes)
+      } catch (err) {
+        console.error(err);
+      }
     }
-  };
 
   useEffect(() => {
     getContent()
+    getListHandler();
     setFilterApplied(false);
-    setMediumFilterApplied(false)
-    setFilterArray("")
-    setMedium("")
-  }, [idParams]);
-
-  useEffect(() => {
-    getContent();
-    getListHandler()
-    setFilterApplied(false);
-    setMediumFilterApplied(false)
+    setMediumFilterApplied(false);
     getVotes();
+    // console.log(filterArray.map((array) => array.values));
     if (isLoggedIn) {
-      userVoteHandler();
+      getUserVotes();
     }
   }, []);
+
 
   useEffect(() => {
     let result = content;
@@ -377,15 +326,10 @@ export default function Type({ children }) {
     
   }, [filterArray, setFilterArray, medium, setMedium]);
 
-  
-  // useEffect(() => {
-  //   // mediumFilter(content)
-  // }, [medium, setMedium]);
-
 
   useEffect(() => {
-    getVotes()
-    userVoteHandler();
+      getVotes()
+
     if (downvoted.id === voted.id && downvoted.voted === true) {
       setVariable(false)
       
@@ -395,18 +339,20 @@ export default function Type({ children }) {
       
 
     }
+    console.log("use effect is running");
+    // NOTE FROM 2/14:
+    // voting is wonky rn, pls return to fix; when u vote on something, it doesn't show voted after refresh unless voted or downvotdd are triggered again. FIx this. THanks
   }, [voted, downvoted, setVoted, setDownvoted]);
 
   useEffect(() => {
     getListHandler()
   }, [listUpdated]);
 
-
   return (
     <>
       <HeaderContainer />
       <MenuContainer />
-      <Discover>
+      <Discover onClick={()=> hideMenu===false ? setHideMenu(true) : null}>
       <ToastContainer
       position="top-center"
       autoClose={1200}
@@ -477,13 +423,8 @@ export default function Type({ children }) {
 
                         voted={
                           voted.voted === true && voted.id === entry.id ||
-                            promptUp.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="upvote") || 
-                            JSON.parse(localStorage.getItem("uservotes"))?.some(
-                                  (item) =>
-                                    item.c_id === entry.id &&
-                                    item.values === "upvote" &&
-                                    item.u_id === currentUser
-                                ) 
+                            promptUp.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="upvote") 
+                            && variable === true
                         }
                       ></Discover.ItemUpvote>
                       <Discover.Count>
@@ -519,13 +460,8 @@ export default function Type({ children }) {
                         // }
                         downvoted={
                           downvoted.voted === true && downvoted.id === entry.id 
-                        ||  promptDown.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="downvote") || 
-                        JSON.parse(localStorage.getItem("uservotes"))?.some(
-                              (item) =>
-                                item.c_id === entry.id &&
-                                item.values === "downvote" &&
-                                item.u_id === currentUser
-                            ) 
+                        ||  promptDown.includes(entry.id) || userVotes.some(item=> item.c_id===entry.id && item.values==="downvote") 
+         && variable === false
 
                         }
                       />
