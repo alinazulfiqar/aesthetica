@@ -24,7 +24,7 @@ export default function Type({ children }) {
   // change name later this is for voting variable
 
   const [variable, setVariable] = useState(false)
-
+  const [votesUpdated, setVotesUpdated] =useState(false)
   // authorization checks
   const currentUser = useSelector((state) =>
     state.authorization.currentUser.userID
@@ -130,6 +130,7 @@ export default function Type({ children }) {
           }),
         });
         const parseRes = await res.json();
+        setVotesUpdated(true)
         // const vote = await getVotes(id);
         if (res.ok === true && value === "upvote") {
           setVoted({ voted: true, id: id });
@@ -299,6 +300,7 @@ export default function Type({ children }) {
         });
   
         const parseRes = await res.json();
+        setVotesUpdated(false)
         setUserVotes(parseRes)
       } catch (err) {
         console.error(err);
@@ -348,7 +350,6 @@ export default function Type({ children }) {
       
 
     }
-    console.log("use effect is running");
     // NOTE FROM 2/14:
     // voting is wonky rn, pls return to fix; when u vote on something, it doesn't show voted after refresh unless voted or downvotdd are triggered again. FIx this. THanks
   }, [voted, downvoted, setVoted, setDownvoted]);
@@ -357,6 +358,11 @@ export default function Type({ children }) {
     getListHandler()
   }, [listUpdated]);
 
+  useEffect(() => {
+    getUserVotes()
+  }, [votesUpdated]);
+
+  
   return (
     <>
       <HeaderContainer />

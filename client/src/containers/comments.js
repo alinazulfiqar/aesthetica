@@ -359,7 +359,7 @@ export function CommentsContainer({ children, ...restProps }) {
     <Comments {...restProps}>
       {children}
       <Comments.TextSmall>
-        {loggedIn ? `Comment as ${userName}` : "Log in to comment."}
+        {loggedIn ? `Be nice in the comments!` : "Log in to comment."}
       </Comments.TextSmall>
       <Comments.CommentContainer onSubmit={onSubmitHandler}>
         <Comments.CommentBox
