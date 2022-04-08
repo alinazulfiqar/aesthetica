@@ -17,7 +17,6 @@ export function CommentsContainer({ children, ...restProps }) {
 
   const [updatedComment, setUpdatedComment] = useState({})
 
-  const [value, setValue] = useState("");
 
   const [reply, setReply] = useState({});
 
@@ -34,11 +33,7 @@ export function CommentsContainer({ children, ...restProps }) {
       : state.authorization.currentUser
   );
 
-  const userName = useSelector((state) =>
-    state.authorization.currentUser.userName
-      ? state.authorization.currentUser.userName
-      : "user"
-  );
+  
 
   const [commentsArray, setCommentsArray] = useState([]);
   const [repliesArray, setRepliesArray] = useState([]);
@@ -77,6 +72,7 @@ export function CommentsContainer({ children, ...restProps }) {
         }),
       });
       const parseRes = await res.json();
+      setContentUpdated(true)
       setInput("");
     } catch (err) {
       console.error(err);
@@ -102,6 +98,7 @@ export function CommentsContainer({ children, ...restProps }) {
       });
       const parseRes = await res.json();
       setReply("");
+      setContentUpdated(true)
       setShowReply({show:false, comment_id:+id})
     } catch (err) {
       console.error(err);
@@ -317,7 +314,7 @@ export function CommentsContainer({ children, ...restProps }) {
 
   useEffect(() => {
     fetchComments();
-  }, [commentsArray, contentUpdated]);
+  }, [contentUpdated]);
 
   return (
     <Comments {...restProps}>

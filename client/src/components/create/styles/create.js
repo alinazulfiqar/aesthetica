@@ -1,10 +1,12 @@
 import styled from "styled-components/macro";
 
 export const Container = styled.div`
-  margin-left: 20rem;
   color: #c4aead;
+ 
+  margin-left: 20vw;
+ 
   @media(max-width:840px){
-    margin: auto;
+    margin-left:0;
   }
 `;
 export const Title = styled.h1`
